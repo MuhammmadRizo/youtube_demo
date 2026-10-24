@@ -29,23 +29,37 @@ async function getVideos() {
 
   file = file.data.data;
 
-  adminWrapper.innerHTML = null;
-
+  adminWrapper.innerHTML = "";
   for (const f of file) {
     adminWrapper.innerHTML += `
-        <ul id="videosList" class="videos-list video-item">
-            <video controls="true" src="${f.viewFile}"></video>
-            <p class="content" contenteditable="true">${f.videoInput}</p>
-            <img class="delete-icon" src="./img/delete.png" width="25">
-        </ul>
+      <ul id="videosList" class="videos-list video-item">
+        <video controls="true" src="${f.viewFile}"></video>
+        <p class="content">${f.videoInput}</p>
+        <div class="videoControlIcons">
+          <img class="delete-icon" src="./img/delete.png" width="25">
+          <img class="edit-icon" src="./img/edit.png" width="25"/>
+        </div>
+      </ul>
     `;
+
+    console.log(f.fileId);
+
+    // const ul = adminWrapper.getElementsByTagName("ul");
+    // const editIcon = adminWrapper.querySelector(".edit-icon");
   }
+  const deleteIcons = adminWrapper.querySelectorAll(".delete-icon");
+  const allContents = adminWrapper.querySelectorAll(".content");
+
+  deleteIcons.forEach((deleteIcon) => {
+    deleteIcon.addEventListener("click", () => {
+      console.log("clicked");
+    });
+  });
+
+  allContents.forEach((classItem) => {
+    console.log(classItem.textContent);
+  });
 }
-
-
-// deleteIcon.addEventListener("click", () => {
-//   console.log("clicked");
-// });
 
 videoForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -69,7 +83,7 @@ videoForm.addEventListener("submit", async (e) => {
 
   if (res.data.status == 200) {
     getVideos();
-    videoInput.value = ""
+    videoInput.value = "";
   }
 });
 

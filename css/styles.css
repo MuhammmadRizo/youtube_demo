@@ -12,8 +12,8 @@ html {
   user-select: none;
 }
 ::-webkit-scrollbar {
-  width: 0; /* Remove scrollbar space */
-  background: transparent; /* Optional: just make scrollbar invisible */
+  width: 0; 
+  background: transparent;
 }
 
 /* ================= VARIABLES ================= */
@@ -290,6 +290,18 @@ main.main {
   top: 0;
   overflow-y: scroll;
 }
+
+.iframes-wrapper::-webkit-scrollbar {
+  width: 5px;
+}
+
+.iframes-wrapper::-webkit-scrollbar-thumb {
+  border-radius: 50px;
+  background: var(--searchbox-legacy-focus-border-color);
+  width: 10px;
+}
+
+
 .iframes-list {
   display: flex;
   flex-wrap: wrap;
