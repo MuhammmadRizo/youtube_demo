@@ -30,6 +30,7 @@ async function getVideos() {
   file = file.data.data;
 
   adminWrapper.innerHTML = null;
+
   for (const f of file) {
     adminWrapper.innerHTML += `
         <ul id="videosList" class="videos-list video-item">
@@ -68,6 +69,7 @@ videoForm.addEventListener("submit", async (e) => {
 
   if (res.data.status == 200) {
     getVideos();
+    videoInput.value = ""
   }
 });
 
