@@ -3,6 +3,16 @@ const usernameInput = document.querySelector("#usernameInput");
 const passwordInput = document.querySelector("#passwordInput");
 const uploadInput = document.querySelector("#uploadInput");
 const showButton = document.querySelector("#showButton");
+const fileName = document.querySelector(".file-name");
+
+uploadInput.addEventListener("change", () => {
+  if (uploadInput.files && uploadInput.files.length > 0) {
+    const fileName1 = uploadInput.files[0].name;
+    fileName.textContent = `📄 ${fileName1}`;
+  } else {
+    fileName.textContent = "click upload a avatar picture";
+  }
+});
 
 showButton.addEventListener("click", () => {
   if (passwordInput.type == "password") {
@@ -22,7 +32,7 @@ registerForm.addEventListener("submit", async (e) => {
   formData.append("file", uploadInput.files[0]);
 
   const res = await axios.post(
-    "https://n30-youtube-api-qys5.onrender.com/register",
+    "https://n30-youtube-api.onrender.com/register",
     formData,
   );
 

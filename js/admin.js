@@ -4,6 +4,16 @@ const videoForm = document.querySelector("#videoForm");
 const videoInput = document.querySelector("#videoInput");
 const uploadInput = document.querySelector("#uploadInput");
 const logoutBtn = document.querySelector("#logoutBtn");
+const fileName = document.querySelector(".file-name");
+
+uploadInput.addEventListener("change", () => {
+  if (uploadInput.files && uploadInput.files.length > 0) {
+    const fileName1 = uploadInput.files[0].name;
+    fileName.textContent = `📂 ${fileName1}`;
+  } else {
+    fileName.textContent = "click upload a video";
+  }
+});
 
 logoutBtn.addEventListener("click", () => {
   window.location = "../login.html";
@@ -18,14 +28,11 @@ if (!token) {
 }
 
 async function getVideos() {
-  let file = await axios.get(
-    "https://n30-youtube-api-qys5.onrender.com/files/my",
-    {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
+  let file = await axios.get("https://n30-youtube-api.onrender.com/files/my", {
+    headers: {
+      Authorization: "Bearer " + token,
     },
-  );
+  });
 
   file = file.data.data;
 
@@ -43,9 +50,6 @@ async function getVideos() {
     `;
 
     console.log(f.fileId);
-
-    // const ul = adminWrapper.getElementsByTagName("ul");
-    // const editIcon = adminWrapper.querySelector(".edit-icon");
   }
   const deleteIcons = adminWrapper.querySelectorAll(".delete-icon");
   const allContents = adminWrapper.querySelectorAll(".content");
@@ -70,7 +74,7 @@ videoForm.addEventListener("submit", async (e) => {
   formVideoData.append("file", uploadInput.files[0]);
 
   const res = await axios.post(
-    "https://n30-youtube-api-qys5.onrender.com/files",
+    "https://n30-youtube-api.onrender.com/files",
     formVideoData,
     {
       headers: {
@@ -84,6 +88,8 @@ videoForm.addEventListener("submit", async (e) => {
   if (res.data.status == 200) {
     getVideos();
     videoInput.value = "";
+    uploadInput.value = "";
+    fileName.textContent = "click upload a video";
   }
 });
 

@@ -7,11 +7,8 @@ const homeButton = document.querySelector("#homeButton");
 let profileImg = window.localStorage.getItem("profileImg");
 
 async function getAllUser() {
-  let users = await axios.get(
-    "https://n30-youtube-api-qys5.onrender.com/users",
-  );
+  let users = await axios.get("https://n30-youtube-api.onrender.com/users");
   users = users.data.data;
-
   for (const user of users) {
     navbarList.innerHTML += `
         <li class="channel" onclick="getAllVideos(${user.userId})">
@@ -21,14 +18,22 @@ async function getAllUser() {
             </a>
         </li>
     `;
-    // user click boganda userId va videodagi userId bir birga teng bo'sa chiqishi kerak
   }
+  const channels = navbarList.querySelectorAll(".channel");
+  channels.forEach((ch) => {
+    ch.addEventListener("click", () => {
+      channels.forEach((ch) => ch.classList.remove("active"));
+      ch.classList.add("active");
+    });
+  });
+
+  homeButton.addEventListener("click", () => {
+    getAllVideos();
+  });
 }
 
 async function getAllVideos(selectedUser = null) {
-  let allVideos = await axios.get(
-    "https://n30-youtube-api-qys5.onrender.com/files",
-  );
+  let allVideos = await axios.get("https://n30-youtube-api.onrender.com/files");
   allVideos = allVideos.data.data;
 
   if (selectedUser) {
