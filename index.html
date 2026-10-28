@@ -72,7 +72,7 @@
                         </g>
                     </svg>
                 </button>
-                <button onclick="voice()" class="search-btn hover-after"
+                <button onclick="voiceSearch()" class="search-btn hover-after"
                     style="background: none; border: none; margin-left: 10px; width: 20px;">
                     <img src="img/mic.svg" alt="mic" width="20" height="25">
                 </button>
@@ -108,7 +108,7 @@
                         </g>
                     </svg>
                 </button>
-                <button class="hover-after">
+                <button class="hover-after youtube-apps">
                     <svg viewbox="0 0 24 24" focusable="false"
                         style="pointer-events: none; display: block; width: 30px; height: 30px;">
                         <g>
@@ -118,6 +118,33 @@
                         </g>
                     </svg>
                 </button>
+
+                <div class="youtube-appsIndside">
+                    <div class="toDoListApp">
+                        <a href="https://lucky-madeleine-e4fd52.netlify.app/">
+                            <img src="./img/todoList.png" alt="">
+                            <p>Todo List</p>
+                        </a>
+                    </div>
+
+                    <div class="filmSite">
+                        <a href="https://classy-entremet-a7dc7e.netlify.app/">
+                            <img src="./img/filmSite.png" alt="">
+                            <p>Film Site</p>
+                        </a>
+                    </div>
+
+                    <div class="lookApp">
+                        <a href="https://melodic-douhua-7891e0.netlify.app/">
+                            <img src="./img/look.svg" alt="">
+                            <p>Look App</p>
+                        </a>
+                    </div>
+
+
+                </div>
+
+
                 <button class="hover-after">
                     <svg viewbox="0 0 24 24" focusable="false"
                         style="pointer-events: none; display: block; width: 30px; height: 24px;">
@@ -134,7 +161,7 @@
             <div class="left-menu-wrapper">
                 <ul class="navbar-list">
                     <h1>YouTube Members</h1>
-                    <li id="homeButton" class="channel active" data_id="main">
+                    <li id="homeButton" onclick="getAllVideos()" class="channel active" data_id="main">
                         <a href="#">
                             <svg viewbox="0 0 24 24" focusable="false"
                                 style="pointer-events: none; display: block; width: 30px; height: 30px;">

@@ -5,6 +5,7 @@ const videoInput = document.querySelector("#videoInput");
 const uploadInput = document.querySelector("#uploadInput");
 const logoutBtn = document.querySelector("#logoutBtn");
 const fileName = document.querySelector(".file-name");
+// let videoName = [];
 
 uploadInput.addEventListener("change", () => {
   if (uploadInput.files && uploadInput.files.length > 0) {
@@ -48,22 +49,73 @@ async function getVideos() {
         </div>
       </ul>
     `;
-
-    console.log(f.fileId);
   }
   const deleteIcons = adminWrapper.querySelectorAll(".delete-icon");
+  const editIcons = adminWrapper.querySelectorAll(".edit-icon");
   const allContents = adminWrapper.querySelectorAll(".content");
 
-  deleteIcons.forEach((deleteIcon) => {
-    deleteIcon.addEventListener("click", () => {
-      console.log("clicked");
+  deleteIcons.forEach((deleteIcon, index) => {
+    deleteIcon.addEventListener("click", async () => {
+      const selectVid = file[index];
+      let selectVidId = selectVid.fileId;
+
+      let natija = await axios.delete(
+        `https://n30-youtube-api.onrender.com/files/`,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+          data: {
+            fileId: selectVidId,
+          },
+        },
+      );
+
+      if (natija.status == 200) {
+        getVideos();
+      }
+
+      // console.log(file[index].fileId);
+      console.log(natija);
+      // console.log(selectVid);
     });
   });
 
-  allContents.forEach((classItem) => {
-    console.log(classItem.textContent);
+  editIcons.forEach((editIcon, index) => {
+    editIcon.addEventListener("click", async () => {
+      const selectVid = file[index];
+      let selectVidId = selectVid.fileId;
+
+      let newName = window.prompt(
+        `${selectVid.videoInput} - nomli videoni nima deb qayta nomlaymiz:`,
+      );
+
+      let natija = await axios.put(
+        `https://n30-youtube-api.onrender.com/files/`,
+        {
+          fileId: selectVidId,
+          value: newName,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        },
+      );
+
+      if (natija.status == 200) {
+        getVideos();
+      }
+
+      // console.log(natija.status)
+      // console.log(file[index].fileId);
+
+      console.log(natija);
+    });
   });
 }
+
+// console.log(videoName);
 
 videoForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -83,7 +135,7 @@ videoForm.addEventListener("submit", async (e) => {
     },
   );
 
-  console.log(res.data);
+  // console.log(res.data);
 
   if (res.data.status == 200) {
     getVideos();
